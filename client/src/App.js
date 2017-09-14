@@ -5,6 +5,8 @@ import NavBar from './components/NavBar';
 import { tokenCheck } from './actions/auth';
 import axios from 'axios';
 import { tokenCheck, logout } from './actions/auth';
+import Home from './components/Home';
+import Auth from './components/Auth';
 
 class App extends React.Component {
   state = { user: {} } 
@@ -41,15 +43,15 @@ class App extends React.Component {
   }
 
   render() {
+    let { user } = this.state;
     return (
       <div>
-      <NavBar logoutUser={this.logoutUser} user={this.state.user.id} />
+        <NavBar logoutUser={this.logoutUser} user={this.state.user.id} />
         <Container>
-          <Register loginUser={this.loginUser} />
+          { user.id ? <Home user={user} /> : <Auth loginUser={this.loginUser} /> }
         </Container>
       </div>
     )
   }
-}
 
 export default App;
